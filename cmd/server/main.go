@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"bookmygo/internal/database"
 	"bookmygo/internal/config"
 	"github.com/gin-gonic/gin"
 )
@@ -10,6 +11,8 @@ import (
 func main(){
 	//Load configuration
 	cfg := config.LoadConfig()
+	//connect to database
+	database.ConnectDB(cfg)
 	//gin router
 	r := gin.Default()
 
@@ -35,6 +38,21 @@ func main(){
 			"DBUser": cfg.DBUser,
 			"DBName": cfg.DBName,
 			"SERVER_PORT": cfg.SERVER_PORT,
+		})
+	})
+
+	r.GET("/db-test", func(c*gin.Context){
+		db := database.GetDB()
+		_  , err := db.DB()
+		if err != nil{
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"status": "Database connection failed",
+				"error": err,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"status": "Database connection successful",
 		})
 	})
 
