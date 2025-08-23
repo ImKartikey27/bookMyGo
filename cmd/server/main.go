@@ -13,6 +13,8 @@ func main(){
 	cfg := config.LoadConfig()
 	//connect to database
 	database.ConnectDB(cfg)
+	//run database migrations
+	database.RunMigrations()
 	//gin router
 	r := gin.Default()
 
