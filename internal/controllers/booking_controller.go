@@ -22,7 +22,7 @@ func NewBookingController() *BookingController{
 	}
 }
 func (bc *BookingController) GetAvailableSeats(c *gin.Context){
-	showID, _ := strconv.Atoi(c.Param("showId"))
+	showID, _ := strconv.Atoi(c.Param("showID"))
 	if showID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "show_id is required"})
 		return
