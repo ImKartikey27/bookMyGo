@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main(){
+func main() {
 	// Set Gin mode for production
 	if os.Getenv("GIN_MODE") == "release" {
 		gin.SetMode(gin.ReleaseMode)
@@ -25,17 +25,17 @@ func main(){
 	//gin router
 	r := gin.Default()
 
-	r.GET("/", func(c*gin.Context){
+	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Welcome to BookMyGo API",
-			"status": "server running",
+			"status":  "server running",
 			"version": "v1.0",
 		})
 	})
 
 	//health check route
 
-	r.GET("/health", func(c*gin.Context){
+	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"status": "healthy",
 		})
@@ -43,6 +43,5 @@ func main(){
 	//setup api routes
 	routes.SetupRoutes(r)
 
-
-	r.Run(":"+ cfg.ServerPort)
+	r.Run(":" + cfg.ServerPort)
 }

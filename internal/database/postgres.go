@@ -9,17 +9,17 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB*gorm.DB
+var DB *gorm.DB
 
 func ConnectDB(cfg *config.Config) {
 	var dsn string
-	
+
 	// Use DATABASE_URL if available (Render provides this)
 	if cfg.DatabaseURL != "" {
 		dsn = cfg.DatabaseURL
 	} else {
 		// Fallback to individual components
-		dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", 
+		dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 			cfg.DBHost, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBPort)
 	}
 
