@@ -51,7 +51,7 @@ func (hc *HallController) GetHallByID(c *gin.Context){
 	id, _ := strconv.Atoi(c.Param("id"))
 	var hall models.Hall
 
-	if err := hc.db.Preload("Theater").Preload("Seats").Find(&hall, id).Error; err != nil{
+	if err := hc.db.Preload("Theater").Preload("Seats").First(&hall, id).Error; err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
