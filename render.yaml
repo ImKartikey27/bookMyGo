@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: bookmygo-api
+    env: go
+    buildCommand: go build -o main cmd/server/main.go
+    startCommand: ./main
+    envVars:
+      - key: SERVER_PORT
+        value: 10000
+      - key: GIN_MODE
+        value: release
+    plan: free
+
+databases:
+  - name: bookmygo-db
+    databaseName: bookmygo
+    user: bookmygo_user
+    plan: free
