@@ -55,3 +55,14 @@ func (tc *TheaterController) GetTheaterByID(c* gin.Context){
 
 	c.JSON(http.StatusOK, theater)
 }
+
+func (tc *TheaterController) DeleteTheater(c *gin.Context){
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	if err := tc.db.Delete(&models.Theater{}, id).Error; err!= nil{
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Theater deleted successfully"})
+}
