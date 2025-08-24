@@ -1,0 +1,960 @@
+{
+	"info": {
+		"_postman_id": "2c2695fb-e94e-41eb-86d4-c8878786b421",
+		"name": "bookmygo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38405054"
+	},
+	"item": [
+		{
+			"name": "Theater",
+			"item": [
+				{
+					"name": "Create Theater",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.eql(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body matches the expected schema\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('theaterId', 'name', 'location', 'capacity');",
+									"    ",
+									"    pm.expect(responseData.theaterId).to.be.a('string');",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location).to.be.an('object').that.has.all.keys('address', 'city', 'state');",
+									"    pm.expect(responseData.location.address).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location.city).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location.state).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.capacity).to.be.a('number').and.to.be.above(0);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Theater object contains required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('id', 'name', 'location');",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'id' must be a positive integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.id).to.exist;",
+									"    pm.expect(responseData.id).to.be.a('number').and.to.be.above(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Galaxy Blue Sapphire\",\n    \"Address\": \"Greater Noida\",\n    \"City\": \"Noida Extension\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/theaters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"theaters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All theaters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response matches the expected schema for theaters\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('theaters').that.is.an('array');",
+									"",
+									"    responseData.theaters.forEach(theater => {",
+									"        pm.expect(theater).to.be.an('object');",
+									"        pm.expect(theater).to.have.all.keys('id', 'name', 'location', 'capacity', 'screen_count');",
+									"        ",
+									"        pm.expect(theater.id).to.be.a('string');",
+									"        pm.expect(theater.name).to.be.a('string').that.is.not.empty;",
+									"        pm.expect(theater.location).to.be.an('object').that.has.all.keys('address', 'city', 'state');",
+									"        pm.expect(theater.location.address).to.be.a('string').that.is.not.empty;",
+									"        pm.expect(theater.location.city).to.be.a('string').that.is.not.empty;",
+									"        pm.expect(theater.location.state).to.be.a('string').that.is.not.empty;",
+									"        pm.expect(theater.capacity).to.be.a('number').that.is.gte(0);",
+									"        pm.expect(theater.screen_count).to.be.a('number').that.is.gte(0);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each theater object contains the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+									"",
+									"    responseData.forEach(theater => {",
+									"        pm.expect(theater).to.have.all.keys('id', 'name', 'location', 'capacity');",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Id is a non-negative integer and name is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+									"",
+									"    responseData.forEach(theater => {",
+									"        pm.expect(theater).to.have.property('id').that.is.a('number').and.is.at.least(0);",
+									"        pm.expect(theater).to.have.property('name').that.is.a('string').and.has.lengthOf.at.least(1);",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/theaters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"theaters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Theater By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response matches expected schema for theater details\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('id', 'name', 'location', 'capacity', 'facilities');",
+									"",
+									"    pm.expect(responseData.id).to.be.a('number');",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    ",
+									"    pm.expect(responseData.location).to.be.an('object').that.has.all.keys('address', 'city', 'state', 'zip');",
+									"    pm.expect(responseData.location.address).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location.city).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location.state).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    pm.expect(responseData.location.zip).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    ",
+									"    pm.expect(responseData.capacity).to.be.a('number').and.to.be.at.least(0);",
+									"    ",
+									"    pm.expect(responseData.facilities).to.be.an('array');",
+									"    responseData.facilities.forEach(function(facility) {",
+									"        pm.expect(facility).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"The name field must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Location field contains latitude and longitude in valid formats\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    ",
+									"    if (responseData.location) {",
+									"        pm.expect(responseData.location).to.have.property('latitude');",
+									"        pm.expect(responseData.location).to.have.property('longitude');",
+									"        ",
+									"        pm.expect(responseData.location.latitude).to.be.a('number').and.to.satisfy(lat => lat >= -90 && lat <= 90, \"Latitude must be between -90 and 90\");",
+									"        pm.expect(responseData.location.longitude).to.be.a('number').and.to.satisfy(lng => lng >= -180 && lng <= 180, \"Longitude must be between -180 and 180\");",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/theaters/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"theaters",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Theater",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 204\", function () {",
+									"    pm.expect(pm.response.code).to.eql(204);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body is empty for successful DELETE request\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object').that.is.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the schema of the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('success', 'message');",
+									"    pm.expect(responseData.success).to.be.a('boolean');",
+									"    pm.expect(responseData.message).to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Resource should be successfully deleted with a 404 status code\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/theaters/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"theaters",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movie",
+			"item": [
+				{
+					"name": "Create Movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Avengers Endgame\",\n    \"description\": \"SuperHero Movie Part of Infinity War\",\n    \"genre\": \"Action\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all movies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get movie by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movies/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movies/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Demon Slayer\",\n    \"description\": \"Anime relatede to demons\",\n    \"genre\": \"Anime\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movies/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "available seats per show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/available-seats/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"available-seats",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "book a seat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingByID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelBooking",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Halls",
+			"item": [
+				{
+					"name": "Create Hall",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Screen-2\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/halls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"halls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllHalls",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/halls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"halls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHallByID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/halls/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"halls",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteHallByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/halls/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"halls",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seats",
+			"item": [
+				{
+					"name": "CreateSeatsPerHall",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rows\":10,\n    \"columns\":10\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/hall/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"hall",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSeatsPerHall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/hall/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"hall",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Show",
+			"item": [
+				{
+					"name": "Create Show",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movie_id\":1,\n    \"hall_id\":3,\n    \"show_time\":\"2025-10-27T18:00:00Z\",\n    \"price\":250.00\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/shows",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"shows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllShows",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/shows",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"shows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShowByID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/shows/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"shows",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShowByTheater",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/shows/theater/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"shows",
+								"theater",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShowByMovie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/shows/movie/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"shows",
+								"movie",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "healthCheck",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

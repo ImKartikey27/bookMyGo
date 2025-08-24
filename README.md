@@ -1,110 +1,381 @@
-`Complete Step-by-Step Plan for Movie Booking System in Go
-Phase 1: Project Foundation (Steps 1-4)
-Step 1: Initialize Go Project
-Create project directory
-Initialize go.mod
-Create basic folder structure (cmd, internal, migrations)
-Understand Go modules and project organization
-Step 2: Basic HTTP Server Setup
-Create main.go in cmd/server/
-Set up basic Gin router
-Test simple "Hello World" endpoint
-Learn about Gin framework basics
-Step 3: Environment Configuration
-Create .env file for database credentials
-Create internal/config/config.go for environment variables
-Learn about configuration management in Go
-Test configuration loading
-Step 4: Database Connection
-Create internal/database/postgres.go
-Set up PostgreSQL connection with GORM
-Test database connectivity
-Learn about database drivers and connection pooling
-Phase 2: Data Models & Database Schema (Steps 5-8)
-Step 5: Define Data Models
-Create internal/models/ with all structs (Theater, Hall, Movie, Show, Booking, Seat)
-Learn about Go structs, tags, and relationships
-Understand GORM model conventions
-Step 6: Database Migrations
-Create SQL migration files in migrations/
-Set up tables: theaters, halls, movies, shows, bookings, seats
-Learn about database relationships and constraints
-Step 7: Repository Layer
-Create internal/repository/ interfaces and implementations
-Implement basic CRUD operations for each model
-Learn about Go interfaces and dependency injection
-Step 8: Test Repository Layer
-Write basic tests for repository functions
-Learn about Go testing framework
-Test database operations
-Phase 3: Business Logic (Steps 9-11)
-Step 9: Service Layer - Basic Operations
-Create internal/services/ for business logic
-Implement movie, theater, show services
-Learn about business logic separation
-Step 10: Service Layer - Booking Logic
-Implement seat availability checking
-Add concurrent booking prevention (locks/transactions)
-Implement alternative seat suggestions
-Learn about concurrency in Go
-Step 11: Test Service Layer
-Write unit tests for business logic
-Test concurrent booking scenarios
-Learn about Go testing patterns
-Phase 4: API Layer (Steps 12-15)
-Step 12: HTTP Handlers - Basic CRUD
-Create internal/handlers/ for HTTP handlers
-Implement movie, theater, show handlers
-Learn about HTTP request/response handling
-Step 13: HTTP Handlers - Booking System
-Implement booking creation handler
-Add seat availability endpoint
-Add booking status endpoints
-Learn about JSON handling and validation
-Step 14: Route Setup
-Create routes in main.go or separate router file
-Group related routes
-Add middleware (logging, CORS, etc.)
-Learn about middleware patterns
-Step 15: Input Validation & Error Handling
-Add request validation
-Implement proper error responses
-Add logging throughout the application
-Learn about error handling in Go
-Phase 5: Advanced Features (Steps 16-19)
-Step 16: Concurrency Control
-Implement row-level locking for seat booking
-Add timeout handling for long-running operations
-Test concurrent booking scenarios
-Learn about Go concurrency primitives
-Step 17: Performance Optimization
-Add database indexes
-Implement connection pooling optimization
-Add caching for frequently accessed data
-Learn about performance monitoring
-Step 18: API Documentation & Testing
-Add API documentation (Swagger)
-Write integration tests
-Test error scenarios
-Learn about API documentation tools
-Step 19: Final Integration & Deployment Prep
-Test entire system end-to-end
-Add health check endpoints
-Prepare for containerization
-Learn about deployment considerations
-Phase 6: Bonus Features (Steps 20-22)
-Step 20: Advanced Booking Features
-Implement booking expiration
-Add payment status simulation
-Implement booking cancellation
-Learn about state management
-Step 21: Monitoring & Logging
-Add structured logging
-Implement metrics collection
-Add request tracing
-Learn about observability
-Step 22: Security & Production Readiness
-Add rate limiting
-Implement authentication (optional)
-Add input sanitization
-Learn about security best practices
+# BookMyGo - Movie Booking System
+
+A comprehensive movie booking system built with Go, Gin framework, and PostgreSQL. This system provides a complete backend solution for managing theaters, movies, shows, and seat bookings with transaction-safe operations.
+
+## 🏗️ Architecture Overview
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        A[Frontend/Postman] --> B[REST API]
+    end
+    
+    subgraph "Application Layer"
+        B --> C[Gin Router]
+        C --> D[Controllers]
+        D --> E[Models]
+        E --> F[Database Layer]
+    end
+    
+    subgraph "Controllers (MVC Pattern)"
+        D1[Theater Controller]
+        D2[Hall Controller]
+        D3[Movie Controller]
+        D4[Show Controller]
+        D5[Seat Controller]
+        D6[Booking Controller]
+    end
+    
+    subgraph "Models"
+        E1[Theater]
+        E2[Hall]
+        E3[Movie]
+        E4[Show]
+        E5[Seat]
+        E6[Booking]
+    end
+    
+    subgraph "Database"
+        F --> G[(PostgreSQL)]
+    end
+    
+    D --> D1
+    D --> D2
+    D --> D3
+    D --> D4
+    D --> D5
+    D --> D6
+    
+    E --> E1
+    E --> E2
+    E --> E3
+    E --> E4
+    E --> E5
+    E --> E6
+```
+
+## 🚀 Features
+
+- **Theater Management**: Create and manage multiple theaters
+- **Hall Management**: Configure halls within theaters with seating capacity
+- **Movie Management**: Add, update, and manage movie catalog
+- **Show Scheduling**: Schedule movies in specific halls with timing and pricing
+- **Seat Management**: Automated seat generation for halls
+- **Booking System**: Transaction-safe seat booking with race condition prevention
+- **Availability Checking**: Real-time seat availability for shows
+- **Booking Management**: View, cancel, and manage bookings
+
+## 🛠️ Tech Stack
+
+- **Backend**: Go (Golang)
+- **Web Framework**: Gin
+- **Database**: PostgreSQL
+- **ORM**: GORM
+- **Architecture**: MVC (Model-View-Controller)
+- **Configuration**: Environment variables
+
+## 📁 Project Structure
+
+```
+bookmygo/
+├── cmd/
+│   └── server/
+│       └── main.go              # Application entry point
+├── internal/
+│   ├── config/
+│   │   └── config.go            # Configuration management
+│   ├── controllers/
+│   │   ├── booking_controller.go    # Booking operations
+│   │   ├── hall_controller.go       # Hall management
+│   │   ├── movie_controller.go      # Movie operations
+│   │   ├── seat_controller.go       # Seat management
+│   │   ├── show_controller.go       # Show scheduling
+│   │   └── theater_controller.go    # Theater management
+│   ├── database/
+│   │   ├── migrate.go           # Database migrations
+│   │   └── postgres.go          # Database connection
+│   ├── models/
+│   │   ├── booking.go           # Booking model
+│   │   ├── hall.go              # Hall model
+│   │   ├── movie.go             # Movie model
+│   │   ├── seat.go              # Seat model
+│   │   ├── show.go              # Show model
+│   │   └── theater.go           # Theater model
+│   └── views/                   # (Reserved for future use)
+├── routes/
+│   └── routes.go                # API route definitions
+├── go.mod                       # Go module file
+├── go.sum                       # Go dependencies
+└── README.md                    # Project documentation
+```
+
+## 🔗 Database Schema
+
+```mermaid
+erDiagram
+    THEATER ||--o{ HALL : contains
+    HALL ||--o{ SEAT : has
+    HALL ||--o{ SHOW : hosts
+    MOVIE ||--o{ SHOW : plays_in
+    SHOW ||--o{ BOOKING : receives
+    SEAT ||--o{ BOOKING : booked_for
+    
+    THEATER {
+        uint id PK
+        string name
+        string address
+        string city
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    
+    HALL {
+        uint id PK
+        uint theater_id FK
+        string name
+        int capacity
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    
+    MOVIE {
+        uint id PK
+        string title
+        string description
+        string genre
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    
+    SHOW {
+        uint id PK
+        uint movie_id FK
+        uint hall_id FK
+        timestamp show_time
+        float price
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    
+    SEAT {
+        uint id PK
+        uint hall_id FK
+        string seat_number
+        string row
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+    
+    BOOKING {
+        uint id PK
+        uint show_id FK
+        uint seat_id FK
+        string customer_name
+        string customer_email
+        string customer_phone
+        bool is_booked
+        timestamp booking_time
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at
+    }
+```
+
+## 🔧 Installation & Setup
+
+### Prerequisites
+- Go 1.19 or higher
+- PostgreSQL 12 or higher
+- Git
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ImKartikey27/bookMyGo.git
+   cd bookmygo
+   ```
+
+2. **Install dependencies**
+   ```bash
+   go mod tidy
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```env
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USER=your_username
+   DB_PASSWORD=your_password
+   DB_NAME=bookmygo
+   SERVER_PORT=8080
+   ```
+
+4. **Create PostgreSQL database**
+   ```bash
+   createdb bookmygo
+   ```
+
+5. **Run the application**
+   ```bash
+   go run cmd/server/main.go
+   ```
+
+The server will start on `http://localhost:8080`
+
+## 📚 API Documentation
+
+### Base URL
+```
+http://localhost:8080/api/v1
+```
+
+### Theater Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/theaters` | Create a new theater |
+| GET | `/theaters` | Get all theaters |
+| GET | `/theaters/:id` | Get theater by ID |
+| PUT | `/theaters/:id` | Update theater |
+| DELETE | `/theaters/:id` | Delete theater |
+
+### Hall Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/halls` | Create a new hall |
+| GET | `/halls` | Get all halls |
+| GET | `/halls/:id` | Get hall by ID |
+| GET | `/halls/theater/:theaterId` | Get halls by theater |
+| DELETE | `/halls/:id` | Delete hall |
+
+### Movie Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/movies` | Create a new movie |
+| GET | `/movies` | Get all movies |
+| GET | `/movies/:id` | Get movie by ID |
+| PUT | `/movies/:id` | Update movie |
+| DELETE | `/movies/:id` | Delete movie |
+
+### Show Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/shows` | Create a new show |
+| GET | `/shows` | Get all shows |
+| GET | `/shows/:id` | Get show by ID |
+| GET | `/shows/movie/:movieId` | Get shows by movie |
+| GET | `/shows/theater/:theaterId` | Get shows by theater |
+| DELETE | `/shows/:id` | Delete show |
+
+### Seat Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/seats/hall/:hallId` | Create seats for a hall |
+| GET | `/seats/hall/:hallId` | Get seats by hall |
+
+### Booking Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/bookings` | Create a new booking |
+| GET | `/bookings/:id` | Get booking by ID |
+| GET | `/bookings/show/:showId` | Get bookings by show |
+| PUT | `/bookings/:id/cancel` | Cancel booking |
+| GET | `/bookings/available-seats/:showId` | Get available seats for show |
+| GET | `/bookings/check-availability` | Check seat availability |
+
+## 🧪 Testing with Postman
+
+### Sample Test Workflow
+
+1. **Create Theater**
+   ```json
+   POST {{base_url}}/theaters
+   {
+     "name": "PVR Cinemas",
+     "address": "123 Mall Road",
+     "city": "Mumbai"
+   }
+   ```
+
+2. **Create Hall**
+   ```json
+   POST {{base_url}}/halls
+   {
+     "name": "Screen 1",
+     "theater_id": {{theater_id}},
+     "capacity": 100
+   }
+   ```
+
+3. **Create Seats**
+   ```json
+   POST {{base_url}}/seats/hall/{{hall_id}}
+   {
+     "rows": 10,
+     "columns": 10
+   }
+   ```
+
+4. **Create Movie**
+   ```json
+   POST {{base_url}}/movies
+   {
+     "title": "Avengers: Endgame",
+     "description": "Epic superhero movie",
+     "genre": "Action"
+   }
+   ```
+
+5. **Create Show**
+   ```json
+   POST {{base_url}}/shows
+   {
+     "movie_id": {{movie_id}},
+     "hall_id": {{hall_id}},
+     "show_time": "2024-08-25T18:00:00Z",
+     "price": 250.00
+   }
+   ```
+
+6. **Check Available Seats**
+   ```
+   GET {{base_url}}/bookings/available-seats/{{show_id}}
+   ```
+
+7. **Book Seat**
+   ```json
+   POST {{base_url}}/bookings
+   {
+     "show_id": {{show_id}},
+     "seat_id": 1,
+     "customer_name": "John Doe",
+     "customer_email": "john@example.com",
+     "customer_phone": "9876543210"
+   }
+   ```
+
+### Postman Collection
+
+📄 **[Download Postman Collection](/Public/bookmygo.postman_collection.json)**
+
+Complete collection with pre-configured requests, environment variables, and test scripts for comprehensive API testing.
+
+## 👥 Authors
+
+- **Kartikey Sangal** - *Initial work* - [ImKartikey27](https://github.com/ImKartikey27)
+
+---
+
+**Built with ❤️ using Go and Gin framework**
