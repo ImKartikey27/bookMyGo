@@ -229,12 +229,19 @@ erDiagram
 
 The server will start on `http://localhost:8080`
 
+## 🌐 Live Demo
+
+**🚀 API is live at:** https://bookmygo.onrender.com/
+
+**🔍 Health Check:** https://bookmygo.onrender.com/health
+
 ## 📚 API Documentation
 
-### Base URL
-```
-http://localhost:8080/api/v1
-```
+### Base URLs
+
+**🌐 Production:** `https://bookmygo.onrender.com/api/v1`
+
+**💻 Local Development:** `http://localhost:8080/api/v1`
 
 ### Theater Endpoints
 
@@ -299,9 +306,11 @@ http://localhost:8080/api/v1
 
 ### Sample Test Workflow
 
+**🌐 Use Production API:** `https://bookmygo.onrender.com/api/v1`
+
 1. **Create Theater**
    ```json
-   POST {{base_url}}/theaters
+   POST https://bookmygo.onrender.com/api/v1/theaters
    {
      "name": "PVR Cinemas",
      "address": "123 Mall Road",
@@ -311,17 +320,17 @@ http://localhost:8080/api/v1
 
 2. **Create Hall**
    ```json
-   POST {{base_url}}/halls
+   POST https://bookmygo.onrender.com/api/v1/halls
    {
      "name": "Screen 1",
-     "theater_id": {{theater_id}},
+     "theater_id": 1,
      "capacity": 100
    }
    ```
 
 3. **Create Seats**
    ```json
-   POST {{base_url}}/seats/hall/{{hall_id}}
+   POST https://bookmygo.onrender.com/api/v1/seats/hall/1
    {
      "rows": 10,
      "columns": 10
@@ -330,7 +339,7 @@ http://localhost:8080/api/v1
 
 4. **Create Movie**
    ```json
-   POST {{base_url}}/movies
+   POST https://bookmygo.onrender.com/api/v1/movies
    {
      "title": "Avengers: Endgame",
      "description": "Epic superhero movie",
@@ -340,10 +349,10 @@ http://localhost:8080/api/v1
 
 5. **Create Show**
    ```json
-   POST {{base_url}}/shows
+   POST https://bookmygo.onrender.com/api/v1/shows
    {
-     "movie_id": {{movie_id}},
-     "hall_id": {{hall_id}},
+     "movie_id": 1,
+     "hall_id": 1,
      "show_time": "2024-08-25T18:00:00Z",
      "price": 250.00
    }
@@ -351,14 +360,14 @@ http://localhost:8080/api/v1
 
 6. **Check Available Seats**
    ```
-   GET {{base_url}}/bookings/available-seats/{{show_id}}
+   GET https://bookmygo.onrender.com/api/v1/bookings/available-seats/1
    ```
 
 7. **Book Seat**
    ```json
-   POST {{base_url}}/bookings
+   POST https://bookmygo.onrender.com/api/v1/bookings
    {
-     "show_id": {{show_id}},
+     "show_id": 1,
      "seat_id": 1,
      "customer_name": "John Doe",
      "customer_email": "john@example.com",
