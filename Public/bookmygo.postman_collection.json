@@ -69,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\": \"Galaxy Blue Sapphire\",\n    \"Address\": \"Greater Noida\",\n    \"City\": \"Noida Extension\"\n}",
+							"raw": "{\n    \"Name\": \"IMAX\",\n    \"Address\": \"Gaur Global\",\n    \"City\": \"Noida Extension\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -77,12 +77,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/theaters",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/theaters",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -170,12 +168,10 @@
 							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/theaters",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/theaters",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -265,12 +261,10 @@
 							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/theaters/6",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/theaters/6",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -333,12 +327,10 @@
 							"raw": "{\n    \"Name\": \"PVR Gaur city\",\n    \"Address\": \"Gaur City\",\n    \"City\": \"Noida\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/theaters/6",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/theaters/6",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -361,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Avengers Endgame\",\n    \"description\": \"SuperHero Movie Part of Infinity War\",\n    \"genre\": \"Action\"\n}",
+							"raw": "{\n    \"title\": \"Avengers Infinity War\",\n    \"description\": \"SuperHero Movie\",\n    \"genre\": \"Action\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -369,12 +361,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/movies",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/movies",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -402,12 +392,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/movies",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/movies",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -435,12 +423,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/movies/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/movies/1",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -466,12 +452,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/movies/2",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/movies/2",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -492,12 +476,10 @@
 							"raw": "{\n    \"title\": \"Demon Slayer\",\n    \"description\": \"Anime relatede to demons\",\n    \"genre\": \"Anime\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/movies/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/movies/1",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -526,18 +508,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/bookings/available-seats/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/bookings/available-seats/2",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"bookings",
 								"available-seats",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -550,15 +530,13 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
+							"raw": "{\n    \"show_id\":2,\n    \"seat_id\":102,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/bookings",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/bookings",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -581,17 +559,15 @@
 							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/bookings/4",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/bookings/5",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"bookings",
-								"4"
+								"5"
 							]
 						}
 					},
@@ -607,17 +583,15 @@
 							"raw": "{\n    \"show_id\":1,\n    \"seat_id\":4,\n    \"customer_name\":\"Kartikey Sangal\",\n    \"customer_email\":\"kartikeysangal.connect@gmail.com\",\n    \"customer_phone\":\"9756335081\"\n\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/bookings/4",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/bookings/5",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"bookings",
-								"4"
+								"5"
 							]
 						}
 					},
@@ -635,15 +609,13 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Name\": \"Screen-2\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
+							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":8,\n    \"Capacity\":100\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/halls",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/halls",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -666,12 +638,10 @@
 							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/halls",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/halls",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -691,12 +661,10 @@
 							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/halls/",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/halls/",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -717,12 +685,10 @@
 							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/halls/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/halls/1",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -748,18 +714,16 @@
 							"raw": "{\n    \"rows\":10,\n    \"columns\":10\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/seats/hall/3",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/seats/hall/5",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"seats",
 								"hall",
-								"3"
+								"5"
 							]
 						}
 					},
@@ -771,18 +735,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/seats/hall/3",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/seats/hall/5",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"seats",
 								"hall",
-								"3"
+								"5"
 							]
 						}
 					},
@@ -800,15 +762,13 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"movie_id\":1,\n    \"hall_id\":3,\n    \"show_time\":\"2025-10-27T18:00:00Z\",\n    \"price\":250.00\n}"
+							"raw": "{\n    \"movie_id\":4,\n    \"hall_id\":5,\n    \"show_time\":\"2025-09-10T18:00:00Z\",\n    \"price\":250.00\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shows",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/shows",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -831,12 +791,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shows",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/shows",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -859,12 +817,10 @@
 							"raw": "{\n    \"Name\": \"Screen-1\",\n    \"theater_id\":7,\n    \"Capacity\":100\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shows/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/shows/1",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -888,12 +844,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shows/theater/7",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/shows/theater/7",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -911,12 +865,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/shows/movie/1",
-							"protocol": "http",
+							"raw": "{{bookmygo}}/api/v1/shows/movie/1",
 							"host": [
-								"localhost"
+								"{{bookmygo}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -943,12 +895,10 @@
 					"raw": "{\n    \n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/health",
-					"protocol": "http",
+					"raw": "{{bookmygo}}/health",
 					"host": [
-						"localhost"
+						"{{bookmygo}}"
 					],
-					"port": "8080",
 					"path": [
 						"health"
 					]
