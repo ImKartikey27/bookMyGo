@@ -69,7 +69,7 @@ func (sc *SeatController) GetSeatsByHall(c *gin.Context) {
     hallID, _ := strconv.Atoi(c.Param("hallId"))
     var seats []models.Seat
 
-    if err := sc.db.Where("hall_id = ?", hallID).Order("row ASC, seat_number ASC").Find(&seats).Error; err != nil {
+    if err := sc.db.Preload("Hall.Theater").Where("hall_id = ?", hallID).Order("row ASC, seat_number ASC").Find(&seats).Error; err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
