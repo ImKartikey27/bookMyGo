@@ -26,6 +26,11 @@ func (sc *ShowController) CreateShow(c *gin.Context){
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	if err := sc.db.Create(&show).Error; err != nil{
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusCreated, show)
 }
 
@@ -67,7 +72,7 @@ func (sc *ShowController) GetShowsByTheater(c *gin.Context){
 	theaterID, _ := strconv.Atoi(c.Param("theaterID"))
 	var shows []models.Show
 
-	if err := sc.db.Preload("Movie").Preload("Hall.Theater").Joins("JOIN halls ON shows.hall_id = halls.id").Where("hall_theater_id = ?", theaterID).Find(&shows).Error; err!= nil {
+	if err := sc.db.Preload("Movie").Preload("Hall.Theater").Joins("JOIN halls ON shows.hall_id = halls.id").Where("halls.theater_id = ?", theaterID).Find(&shows).Error; err!= nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Shows not found"})
 		return
 	}
