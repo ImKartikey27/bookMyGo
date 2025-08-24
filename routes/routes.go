@@ -36,9 +36,7 @@ func SetupRoutes(r *gin.Engine){
 		{
 			booking.POST("/", bookingController.CreateBooking)
 			booking.GET("/:id", bookingController.GetBookingByID)
-			booking.GET("/show/:showID", bookingController.GetBookingsByShow)
 			booking.PUT("/:id", bookingController.CancelBooking)
-			booking.GET("/check-availability", bookingController.CheckSeatAvailability)
 			booking.GET("/available-seats/:showID", bookingController.GetAvailableSeats)
 
 		}
