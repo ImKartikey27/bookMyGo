@@ -10,6 +10,8 @@ func SetupRoutes(r *gin.Engine){
 	movieController := controllers.NewMovieController()
 	bookingController := controllers.NewBookingController()
 	showController := controllers.NewShowController()
+	seatController := controllers.NewSeatController()
+	hallController := controllers.NewHallController()
 
 	api := r.Group("/api/v1")
 	{
@@ -33,9 +35,9 @@ func SetupRoutes(r *gin.Engine){
 		booking := api.Group("/bookings")
 		{
 			booking.POST("/", bookingController.CreateBooking)
-			booking.GET("/", bookingController.GetBookingByID)
-			booking.GET("/:showID", bookingController.GetBookingsByShow)
-			booking.DELETE("/:id", bookingController.CancelBooking)
+			booking.GET("/:id", bookingController.GetBookingByID)
+			booking.GET("/show/:showID", bookingController.GetBookingsByShow)
+			booking.PUT("/:id", bookingController.CancelBooking)
 			booking.GET("/check-availability", bookingController.CheckSeatAvailability)
 			booking.GET("/available-seats/:showID", bookingController.GetAvailableSeats)
 
@@ -49,6 +51,19 @@ func SetupRoutes(r *gin.Engine){
 			shows.GET("/theater/:theaterID",showController.GetShowsByTheater)
 			shows.DELETE("/:id", showController.DeleteShow)
 		}
+		seats := api.Group("/seats")
+		{
+			seats.POST("/hall/:hallId", seatController.CreateSeatsForHall)
+			seats.GET("/hall/:hallId", seatController.GetSeatsByHall)
+		}
+		halls := api.Group("/halls")
+		{
+			halls.POST("/", hallController.CreateHall)
+			halls.GET("/", hallController.GetAllHalls)
+			halls.GET("/:id", hallController.GetHallByID)
+			halls.DELETE("/:id", hallController.DeleteHall)
+		}
+
 
 		
 	}
