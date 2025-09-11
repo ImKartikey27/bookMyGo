@@ -34,7 +34,6 @@ func SetupRoutes(r *gin.Engine){
 
 		booking := api.Group("/bookings")
 		{
-			
 			booking.POST("/", bookingController.CreateBooking)
 			booking.GET("/:id", bookingController.GetBookingByID)
 			booking.PUT("/:id", bookingController.CancelBooking)
